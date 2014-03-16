@@ -2,7 +2,11 @@
 
 # following https://wiki.debian.org/DebianInstaller/Preseed/EditIso on 2014-03-16
 
-[ -f cd ] && chmod -R 777 cd && rm -rf cd
+if [ -d cd ]
+then
+    chmod -R 777 cd
+    rm -rf cd
+fi
 
 mkdir loopdir
 fuseiso debian-testing-amd64-netinst.iso loopdir
@@ -10,6 +14,8 @@ mkdir cd
 rsync -a -H --exclude=TRANS.TBL loopdir/ cd
 fusermount -u loopdir
 rm -rf loopdir
+
+chmod -R u+w cd
 
 mkdir irmod
 cd irmod
