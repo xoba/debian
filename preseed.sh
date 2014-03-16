@@ -5,15 +5,16 @@
 if [ -d cd ]
 then
     chmod -R 777 cd
-    rm -rf cd
+    sudo rm -rf cd
 fi
 
-mkdir loopdir
-fuseiso debian-testing-amd64-netinst.iso loopdir
+sudo mkdir loopdir
+sudo mount -r -o loop debian-testing-amd64-netinst.iso loopdir
+#fuseiso debian-testing-amd64-netinst.iso loopdir
 mkdir cd
 sleep 1
 rsync -a -H --exclude=TRANS.TBL loopdir/ cd
-fusermount -u loopdir
+sudo umount loopdir
 rm -rf loopdir
 
 chmod -R u+w cd
@@ -21,11 +22,11 @@ chmod -R u+w cd
 rm -rf irmod
 mkdir irmod
 cd irmod
-gzip -d < ../cd/install.amd/initrd.gz | cpio --extract --make-directories --no-absolute-filenames
+gzip -d < ../cd/install.amd/initrd.gz | sudo cpio --extract --make-directories --no-absolute-filenames
 cp ../preseed.cfg preseed.cfg
 find . | cpio -H newc --create | gzip -9 > ../cd/install.amd/initrd.gz
 cd ../
-rm -fr irmod/
+sudo rm -fr irmod/
 
 cd cd
 cat > isolinux/isolinux.cfg <<EOF
@@ -41,5 +42,5 @@ EOF
 md5sum `find -follow -type f` > md5sum.txt
 cd ..
 
-mkisofs -o preseeded.iso -r -J -no-emul-boot -boot-load-size 4 -boot-info-table -b isolinux/isolinux.bin -c isolinux/boot.cat ./cd
+genisoimage -o preseeded.iso -r -J -l -no-emul-boot -boot-load-size 4 -boot-info-table -b isolinux/isolinux.bin -z -iso-level 4 -c isolinux/boot.cat ./cd
 
