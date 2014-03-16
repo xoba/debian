@@ -2,12 +2,14 @@
 
 # following https://wiki.debian.org/DebianInstaller/Preseed/EditIso on 2014-03-16
 
-mkdir -p loopdir
+[ -f cd ] && chmod -R 777 cd && rm -rf cd
+
+mkdir loopdir
 fuseiso debian-testing-amd64-netinst.iso loopdir
-mkdir -p cd
+mkdir cd
 rsync -a -H --exclude=TRANS.TBL loopdir/ cd
 fusermount -u loopdir
-rmdir loopdir
+rm -rf loopdir
 
 mkdir irmod
 cd irmod
@@ -21,5 +23,5 @@ cd cd
 md5sum `find -follow -type f` > md5sum.txt
 cd ..
 
-mkisofs -o test.iso -r -J -no-emul-boot -boot-load-size 4 -boot-info-table -b isolinux/isolinux.bin -c isolinux/boot.cat ./cd
+mkisofs -o preseeded.iso -r -J -no-emul-boot -boot-load-size 4 -boot-info-table -b isolinux/isolinux.bin -c isolinux/boot.cat ./cd
 
