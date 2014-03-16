@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# following https://wiki.debian.org/DebianInstaller/Preseed/EditIso on 2014-03-16
+
 mkdir -p loopdir
 fuseiso debian-testing-amd64-netinst.iso loopdir
 mkdir -p cd
@@ -7,4 +9,17 @@ rsync -a -H --exclude=TRANS.TBL loopdir/ cd
 fusermount -u loopdir
 rmdir loopdir
 
+mkdir irmod
+cd irmod
+gzip -d < ../cd/install.amd/initrd.gz | cpio --extract --verbose --make-directories --no-absolute-filenames
+cp ../preseed.cfg preseed.cfg
+find . | cpio -H newc --create --verbose | gzip -9 > ../cd/install.amd/initrd.gz
+cd ../
+rm -fr irmod/
+
+cd cd
+md5sum `find -follow -type f` > md5sum.txt
+cd ..
+
+mkisofs -o test.iso -r -J -no-emul-boot -boot-load-size 4 -boot-info-table -b isolinux/isolinux.bin -c isolinux/boot.cat ./cd
 
