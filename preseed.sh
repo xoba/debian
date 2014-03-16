@@ -19,9 +19,9 @@ chmod -R u+w cd
 
 mkdir irmod
 cd irmod
-gzip -d < ../cd/install.amd/initrd.gz | cpio --extract --verbose --make-directories --no-absolute-filenames
+gzip -d < ../cd/install.amd/initrd.gz | cpio --extract --make-directories --no-absolute-filenames
 cp ../preseed.cfg preseed.cfg
-find . | cpio -H newc --create --verbose | gzip -9 > ../cd/install.amd/initrd.gz
+find . | cpio -H newc --create | gzip -9 > ../cd/install.amd/initrd.gz
 cd ../
 rm -fr irmod/
 
