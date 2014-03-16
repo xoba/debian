@@ -10,9 +10,7 @@ fi
 
 sudo mkdir loopdir
 sudo mount -r -o loop debian-testing-amd64-netinst.iso loopdir
-#fuseiso debian-testing-amd64-netinst.iso loopdir
 mkdir cd
-sleep 1
 rsync -a -H --exclude=TRANS.TBL loopdir/ cd
 sudo umount loopdir
 rm -rf loopdir
@@ -42,5 +40,5 @@ EOF
 md5sum `find -follow -type f` > md5sum.txt
 cd ..
 
-genisoimage -o preseeded.iso -r -J -l -no-emul-boot -boot-load-size 4 -boot-info-table -b isolinux/isolinux.bin -z -iso-level 4 -c isolinux/boot.cat ./cd
+genisoimage -quiet -o preseeded.iso -r -J -l -no-emul-boot -boot-load-size 4 -boot-info-table -b isolinux/isolinux.bin -z -iso-level 4 -c isolinux/boot.cat ./cd
 
