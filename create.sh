@@ -27,7 +27,7 @@ fi
 ./preseed.sh
 
 vboxmanage storagectl $1 --name "IDE" --add ide
-vboxmanage storageattach $1 --storagectl "IDE" --type dvddrive --port 0 --device 0 --medium `pwd`/debian-testing-amd64-netinst.iso
+vboxmanage storageattach $1 --storagectl "IDE" --type dvddrive --port 0 --device 0 --medium `pwd`/preseeded.iso
 
 # hard drive
 vboxmanage storagectl $1 --name "SATA" --add sata
