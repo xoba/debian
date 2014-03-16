@@ -24,6 +24,8 @@ then
     exit
 fi
 
+./preseed.sh
+
 vboxmanage storagectl $1 --name "IDE" --add ide
 vboxmanage storageattach $1 --storagectl "IDE" --type dvddrive --port 0 --device 0 --medium `pwd`/debian-testing-amd64-netinst.iso
 
