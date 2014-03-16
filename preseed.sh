@@ -11,12 +11,14 @@ fi
 mkdir loopdir
 fuseiso debian-testing-amd64-netinst.iso loopdir
 mkdir cd
+sleep 1
 rsync -a -H --exclude=TRANS.TBL loopdir/ cd
 fusermount -u loopdir
 rm -rf loopdir
 
 chmod -R u+w cd
 
+rm -rf irmod
 mkdir irmod
 cd irmod
 gzip -d < ../cd/install.amd/initrd.gz | cpio --extract --make-directories --no-absolute-filenames
@@ -26,6 +28,16 @@ cd ../
 rm -fr irmod/
 
 cd cd
+cat > isolinux/isolinux.cfg <<EOF
+prompt 0
+timeout 1
+default install
+label install
+	menu label ^Install
+	menu default
+	kernel /install.amd/vmlinuz
+	append vga=788 initrd=/install.amd/initrd.gz -- quiet 
+EOF
 md5sum `find -follow -type f` > md5sum.txt
 cd ..
 
