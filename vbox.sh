@@ -6,7 +6,7 @@ vboxmanage createvm -name $1 --register
 
 # configure the machine
 vboxmanage modifyvm $1 --memory $2
-vboxmanage modifyvm $1 --cpus 3 --ioapic on
+vboxmanage modifyvm $1 --cpus $3 --ioapic on
 vboxmanage modifyvm $1 --ostype Debian_64
 vboxmanage modifyvm $1 --vram 17
 vboxmanage modifyvm $1 --rtcuseutc on
