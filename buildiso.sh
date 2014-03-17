@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# following https://wiki.debian.org/DebianInstaller/Preseed/EditIso on 2014-03-16
+# roughly following https://wiki.debian.org/DebianInstaller/Preseed/EditIso on 2014-03-16
 
 sudo rm -rf cd loopdir irmod
 
