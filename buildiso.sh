@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# roughly following https://wiki.debian.org/DebianInstaller/Preseed/EditIso on 2014-03-16
-
 sudo rm -rf cd loopdir irmod
 
 sudo mkdir loopdir
@@ -11,7 +9,9 @@ rsync -a -H --exclude=TRANS.TBL loopdir/ cd
 sudo umount loopdir
 rm -rf loopdir
 
-sudo cp rc.local cd
+sed s/NAME/$1/g rc.local > /tmp/rc.local
+sudo cp /tmp/rc.local cd/
+rm /tmp/rc.local
 sudo chmod -R u+w cd
 
 sudo chmod uog+x cd/rc.local

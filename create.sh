@@ -6,8 +6,8 @@ vboxmanage createvm -name $1 --register
 
 # configure the machine
 vboxmanage modifyvm $1 --ostype Debian_64
-vboxmanage modifyvm $1 --memory 4096
-vboxmanage modifyvm $1 --cpus 2 --ioapic on
+vboxmanage modifyvm $1 --memory 8192
+vboxmanage modifyvm $1 --cpus 4 --ioapic on
 vboxmanage modifyvm $1 --vram 17
 vboxmanage modifyvm $1 --rtcuseutc on
 vboxmanage modifyvm $1 --pae on
@@ -30,7 +30,7 @@ then
 fi
 
 # build custom iso
-./buildiso.sh
+./buildiso.sh $1
 
 # dvd drive
 vboxmanage storagectl $1 --name "IDE" --add ide
@@ -44,3 +44,4 @@ vboxmanage storageattach $1 --storagectl "SATA" --port 0 --device 0 --type hdd -
 # start it
 vboxmanage startvm $1 --type headless
 
+go run master.go -halt
