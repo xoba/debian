@@ -1,0 +1,3 @@
+#!/bin/bash -e
+echo "howdy" > /root/test.txt
+exit 0
