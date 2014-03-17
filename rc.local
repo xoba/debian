@@ -1,3 +1,5 @@
 #!/bin/bash -e
-echo "howdy" > /root/test.txt
+ufw allow 22
+ufw allow 80
+ufw enable
 exit 0
