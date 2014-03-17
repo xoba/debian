@@ -24,4 +24,4 @@ vboxmanage storageattach $1 --storagectl "SATA" --port 0 --device 0 --type hdd -
 # start it
 vboxmanage startvm $1 --type headless
 
-go run master.go -halt false
+go run master.go -halt=false

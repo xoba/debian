@@ -22,7 +22,7 @@ func main() {
 		w.WriteHeader(http.StatusNoContent)
 		host, _, err := net.SplitHostPort(r.RemoteAddr)
 		if err == nil {
-			fmt.Printf("ssh-keygen -f \"~/.ssh/known_hosts\" -R %s; ssh root@%s # machine %q\n", host, host, r.URL.Query().Get("name"))
+			fmt.Printf("ssh-keygen -f ~/.ssh/known_hosts -R %s; ssh root@%s # machine %q\n", host, host, r.URL.Query().Get("name"))
 			if halt {
 				os.Exit(0)
 			}
