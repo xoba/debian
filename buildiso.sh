@@ -41,5 +41,5 @@ cd ..
 sudo chown -R root cd
 sudo chgrp -R root cd
 
-sudo genisoimage -quiet -o preseeded.iso -r -J -l -no-emul-boot -boot-load-size 4 -boot-info-table -b isolinux/isolinux.bin -z -iso-level 4 -c isolinux/boot.cat ./cd
+sudo genisoimage -quiet -o custom.iso -r -J -l -no-emul-boot -boot-load-size 4 -boot-info-table -b isolinux/isolinux.bin -z -iso-level 4 -c isolinux/boot.cat ./cd
 
