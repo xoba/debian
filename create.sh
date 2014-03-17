@@ -1,11 +1,14 @@
 #!/bin/bash
+#
+# "./create vmname"
+#
 vboxmanage createvm -name $1 --register
 
 # configure the machine
 vboxmanage modifyvm $1 --ostype Debian_64
-vboxmanage modifyvm $1 --memory 8192
+vboxmanage modifyvm $1 --memory 4096
 vboxmanage modifyvm $1 --vram 17
-vboxmanage modifyvm $1 --cpus 4 --ioapic on
+vboxmanage modifyvm $1 --cpus 2 --ioapic on
 vboxmanage modifyvm $1 --rtcuseutc on
 vboxmanage modifyvm $1 --pae on
 vboxmanage modifyvm $1 --nestedpaging on
