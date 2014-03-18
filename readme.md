@@ -7,8 +7,8 @@ for example:
 creates a debian server instance named "test" with 4096mb memory, 4
 cpu's, and 20gb of disk. all arguments are optional.
 
-```./create.sh``` will finally run a ```go``` program which will receive status
-updates via http calls from your instance, once it begins running.
+```./create.sh``` will finally run a ```go``` program which receives status
+updates via http calls from your instance(s), once they begin running.
 
 always runs latest version of debian testing, downloaded and installed from:
 
