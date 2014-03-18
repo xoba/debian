@@ -37,12 +37,14 @@ func probeInterfaces() (string, string) {
 		if IsFlagSet(x.Flags, net.FlagUp) && !IsFlagSet(x.Flags, net.FlagLoopback) {
 			addrs, err := x.Addrs()
 			check(err)
-			if i, ok := addrs[0].(*net.IPNet); ok {
-				return x.Name, i.IP.String()
+			if len(addrs) > 0 {
+				if i, ok := addrs[0].(*net.IPNet); ok {
+					return x.Name, i.IP.String()
+				}
 			}
 		}
 	}
-	panic("no network")
+	panic("can't find network")
 }
 
 func server(halt bool) {

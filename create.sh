@@ -1,8 +1,16 @@
 #!/bin/bash
 
+# assumes https://www.virtualbox.org/wiki/Linux_Downloads is installed 
+# and vboxmanage command is on path
+
+if [ -z "$GOROOT" ]; 
+then 
+    source <(curl https://raw.github.com/xoba/goinit/master/buildgo.sh) 2>&1 | tee golog.txt
+fi
+
 VMNAME=test
-MEMORY=8192
-CPUS=4
+MEMORY=4096
+CPUS=2
 RUN=boot.sh
 DISK=10240
 
