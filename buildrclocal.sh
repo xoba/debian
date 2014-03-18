@@ -13,7 +13,8 @@ do
     esac
 done
 
-sed s/NAME/$VMNAME/g rc.local | sed -e "/RUN/ {
+IPADDR=`hostname -I | head -1`
+sed s/IPADDR/$IPADDR/g rc.local | sed s/NAME/$VMNAME/g | sed -e "/RUN/ {
 r $RUN
 d }" > /tmp/rc.local
 chmod u+x /tmp/rc.local

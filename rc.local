@@ -10,7 +10,7 @@ ufw enable
 
 # schedule for phoning home
 cat > /tmp/rootcron <<EOF
-* * * * * /usr/bin/curl http://192.168.1.2:8080/cron?name=NAME
+* * * * * /usr/bin/curl http://IPADDR:8080/cron?name=NAME
 EOF
 crontab -u vm /tmp/rootcron
 rm /tmp/rootcron
@@ -24,6 +24,6 @@ chmod u+x /tmp/boot.sh
 rm /tmp/boot.sh
 
 # phone home
-/usr/bin/curl http://192.168.1.2:8080/boot?name=NAME
+/usr/bin/curl http://IPADDR:8080/boot?name=NAME
 
 exit 0
