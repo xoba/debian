@@ -20,6 +20,8 @@ done
 
 vboxmanage createvm -name $VMNAME --register
 
+INF=`go run master.go -inf | awk '{ print $1 }'`
+
 # configure the machine
 vboxmanage modifyvm $VMNAME --memory $MEMORY
 vboxmanage modifyvm $VMNAME --cpus $CPUS --ioapic on
@@ -32,5 +34,5 @@ vboxmanage modifyvm $VMNAME --nestedpaging on
 vboxmanage modifyvm $VMNAME --largepages on
 vboxmanage modifyvm $VMNAME --vtxvpid on
 vboxmanage modifyvm $VMNAME --vtxux on
-vboxmanage modifyvm $VMNAME --nic1 bridged --bridgeadapter1 eth1
+vboxmanage modifyvm $VMNAME --nic1 bridged --bridgeadapter1 $INF
 vboxmanage modifyvm $VMNAME --nictype1 82545EM

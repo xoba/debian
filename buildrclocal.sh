@@ -13,7 +13,7 @@ do
     esac
 done
 
-IPADDR=`hostname -I | head -1 | tr -d ' '`
+IPADDR=`go run master.go -inf | awk '{ print $2 }'`
 sed "s/IPADDR/$IPADDR/g" rc.local | sed "s/NAME/$VMNAME/g" | sed -e "/RUN/ {
 r $RUN
 d }" > /tmp/rc.local

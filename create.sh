@@ -4,7 +4,7 @@ VMNAME=test
 MEMORY=8192
 CPUS=4
 RUN=boot.sh
-DISK=40960
+DISK=10240
 
 options=':n:m:c:r:d:help'
 while getopts $options option

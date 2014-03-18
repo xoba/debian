@@ -11,11 +11,42 @@ import (
 
 func main() {
 
-	log.Printf("waiting to be contacted by running vm...")
-
-	var halt bool
+	var halt, wait, inf bool
 	flag.BoolVar(&halt, "halt", false, "whether to halt after first call")
+	flag.BoolVar(&wait, "wait", true, "wait to be contacted by vm's")
+	flag.BoolVar(&inf, "inf", false, "get info on network interfaces")
 	flag.Parse()
+
+	switch {
+	case inf:
+		fmt.Println(probeInterfaces())
+	case wait:
+		server(halt)
+	default:
+	}
+}
+
+func IsFlagSet(set, f net.Flags) bool {
+	return set&f == f
+}
+
+func probeInterfaces() (string, string) {
+	infs, err := net.Interfaces()
+	check(err)
+	for _, x := range infs {
+		if IsFlagSet(x.Flags, net.FlagUp) && !IsFlagSet(x.Flags, net.FlagLoopback) {
+			addrs, err := x.Addrs()
+			check(err)
+			if i, ok := addrs[0].(*net.IPNet); ok {
+				return x.Name, i.IP.String()
+			}
+		}
+	}
+	panic("no network")
+}
+
+func server(halt bool) {
+	log.Printf("waiting to be contacted by running vm...")
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("%s %s %q\n", r.Method, r.RemoteAddr, r.RequestURI)
@@ -29,4 +60,10 @@ func main() {
 		}
 	})
 	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
+func check(e error) {
+	if e != nil {
+		panic(e)
+	}
 }
