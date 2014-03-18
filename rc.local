@@ -1,12 +1,9 @@
-#!/bin/bash -e
+#!/bin/bash
 
 # secure the system
 ufw allow 22
 ufw allow 80
 ufw enable
-
-# phone home
-/usr/bin/curl http://192.168.1.2:8080/boot?name=NAME
 
 # catalogue the filesystem
 /usr/bin/updatedb
@@ -25,5 +22,8 @@ EOF
 chmod u+x /tmp/boot.sh
 /tmp/boot.sh
 rm /tmp/boot.sh
+
+# phone home
+/usr/bin/curl http://192.168.1.2:8080/boot?name=NAME
 
 exit 0
