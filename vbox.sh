@@ -2,19 +2,35 @@
 #
 # run as "./vbox.sh name memory cpus"
 #
-vboxmanage createvm -name $1 --register
+
+VMNAME=test
+MEMORY=8192
+CPUS=4
+
+options=':n:m:c:help'
+while getopts $options option
+do
+    case $option in
+        n  )    VMNAME=$OPTARG;;
+        m  )    MEMORY=$OPTARG;;
+        c  )    CPUS=$OPTARG;;
+	h  )    echo "./vbox.sh -n <vmname> -m <memory> -c <cpus>"; exit;;
+    esac
+done
+
+vboxmanage createvm -name $VMNAME --register
 
 # configure the machine
-vboxmanage modifyvm $1 --memory $2
-vboxmanage modifyvm $1 --cpus $3 --ioapic on
-vboxmanage modifyvm $1 --ostype Debian_64
-vboxmanage modifyvm $1 --vram 17
-vboxmanage modifyvm $1 --rtcuseutc on
-vboxmanage modifyvm $1 --pae on
-vboxmanage modifyvm $1 --hpet on
-vboxmanage modifyvm $1 --nestedpaging on
-vboxmanage modifyvm $1 --largepages on
-vboxmanage modifyvm $1 --vtxvpid on
-vboxmanage modifyvm $1 --vtxux on
-vboxmanage modifyvm $1 --nic1 bridged --bridgeadapter1 eth1
-vboxmanage modifyvm $1 --nictype1 82545EM
+vboxmanage modifyvm $VMNAME --memory $MEMORY
+vboxmanage modifyvm $VMNAME --cpus $CPUS --ioapic on
+vboxmanage modifyvm $VMNAME --ostype Debian_64
+vboxmanage modifyvm $VMNAME --vram 17
+vboxmanage modifyvm $VMNAME --rtcuseutc on
+vboxmanage modifyvm $VMNAME --pae on
+vboxmanage modifyvm $VMNAME --hpet on
+vboxmanage modifyvm $VMNAME --nestedpaging on
+vboxmanage modifyvm $VMNAME --largepages on
+vboxmanage modifyvm $VMNAME --vtxvpid on
+vboxmanage modifyvm $VMNAME --vtxux on
+vboxmanage modifyvm $VMNAME --nic1 bridged --bridgeadapter1 eth1
+vboxmanage modifyvm $VMNAME --nictype1 82545EM

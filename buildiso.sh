@@ -1,5 +1,16 @@
 #!/bin/bash
 
+VMNAME=na
+
+options=':n:help'
+while getopts $options option
+do
+    case $option in
+        n  )    VMNAME=$OPTARG;;
+	h  )    echo "./buildiso.sh -n <vmname>"; exit;;
+    esac
+done
+
 sudo rm -rf cd loopdir irmod
 
 sudo mkdir loopdir
@@ -9,7 +20,7 @@ rsync -a -H --exclude=TRANS.TBL loopdir/ cd
 sudo umount loopdir
 rm -rf loopdir
 
-sed s/NAME/$1/g rc.local > /tmp/rc.local
+sed s/NAME/$VMNAME/g rc.local > /tmp/rc.local
 sudo cp /tmp/rc.local cd/
 rm /tmp/rc.local
 sudo chmod -R u+w cd
