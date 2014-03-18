@@ -9,7 +9,7 @@ then
 fi
 
 VMNAME=test
-MEMORY=4096
+MEMORY=2048
 CPUS=2
 RUN=boot.sh
 DISK=10240
