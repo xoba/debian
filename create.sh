@@ -32,10 +32,12 @@ done
 vboxmanage storagectl $VMNAME --name "IDE" --add ide
 vboxmanage storageattach $VMNAME --storagectl "IDE" --type dvddrive --port 0 --device 0 --medium `pwd`/custom.iso
 
+mkdir -p disks
+
 # hard drive
 vboxmanage storagectl $VMNAME --name "SATA" --add sata
-vboxmanage createhd --filename $VMNAME.vdi --size $DISK
-vboxmanage storageattach $VMNAME --storagectl "SATA" --port 0 --device 0 --type hdd --medium $VMNAME.vdi
+vboxmanage createhd --filename disks/$VMNAME.vdi --size $DISK
+vboxmanage storageattach $VMNAME --storagectl "SATA" --port 0 --device 0 --type hdd --medium disks/$VMNAME.vdi
 
 # start it
 vboxmanage startvm $VMNAME --type headless
