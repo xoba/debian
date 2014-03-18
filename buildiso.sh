@@ -1,13 +1,15 @@
 #!/bin/bash
 
 VMNAME=na
+RUN=boot.sh
 
-options=':n:help'
+options=':n:r:help'
 while getopts $options option
 do
     case $option in
         n  )    VMNAME=$OPTARG;;
-	h  )    echo "./buildiso.sh -n <vmname>"; exit;;
+        r  )    RUN=$OPTARG;;
+	h  )    echo "./buildiso.sh -n <vmname> -r <boot script>"; exit;;
     esac
 done
 
@@ -20,9 +22,8 @@ rsync -a -H --exclude=TRANS.TBL loopdir/ cd
 sudo umount loopdir
 rm -rf loopdir
 
-sed s/NAME/$VMNAME/g rc.local > /tmp/rc.local
-sudo cp /tmp/rc.local cd/
-rm /tmp/rc.local
+./buildrclocal.sh -n $VMNAME -r $RUN
+
 sudo chmod -R u+w cd
 
 sudo chmod uog+x cd/rc.local

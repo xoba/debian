@@ -3,15 +3,17 @@
 VMNAME=test
 MEMORY=8192
 CPUS=4
+RUN=boot.sh
 
-options=':n:m:c:help'
+options=':n:m:c:r:help'
 while getopts $options option
 do
     case $option in
         n  )    VMNAME=$OPTARG;;
         m  )    MEMORY=$OPTARG;;
         c  )    CPUS=$OPTARG;;
-	h  )    echo "./vbox.sh -n <vmname> -m <memory> -c <cpus>"; exit;;
+        r  )    RUN=$OPTARG;;
+	h  )    echo "./vbox.sh -n <vmname> -m <memory> -c <cpus> -r <boot script>"; exit;;
     esac
 done
 
@@ -19,7 +21,7 @@ done
 ./downloados.sh
 
 # build custom iso
-./buildiso.sh -n $VMNAME
+./buildiso.sh -n $VMNAME -r $RUN
 
 # create the virtualbox instance
 ./vbox.sh -n $VMNAME -m $MEMORY -c $CPUS
