@@ -1,8 +1,8 @@
-MD5SUMS.small
 *~
-loopdir
 cd
+disks
 irmod
 *.iso
+loopdir
+MD5SUMS.small
 *.vdi
-disks
