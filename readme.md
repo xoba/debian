@@ -12,4 +12,4 @@ updates via http calls from your instance, once it begins running.
 
 always runs latest version of debian testing netinstall, downloaded from:
 
-    http://cdimage.debian.org/cdimage/daily-builds/daily/arch-latest/amd64/iso-cd/debian-testing-amd64-netinst.iso
+http://cdimage.debian.org/cdimage/daily-builds/daily/arch-latest/amd64/iso-cd/debian-testing-amd64-netinst.iso
