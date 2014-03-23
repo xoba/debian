@@ -9,8 +9,8 @@ then
 fi
 
 VMNAME=test
-MEMORY=2048
-CPUS=2
+MEMORY=8192
+CPUS=4
 RUN=boot.sh
 DISK=10240
 
@@ -48,6 +48,6 @@ vboxmanage createhd --filename disks/$VMNAME.vdi --size $DISK
 vboxmanage storageattach $VMNAME --storagectl "SATA" --port 0 --device 0 --type hdd --medium disks/$VMNAME.vdi
 
 # start it
-vboxmanage startvm $VMNAME --type headless
+vboxmanage startvm $VMNAME # --type headless
 
 go run master.go -halt=false
