@@ -4,7 +4,7 @@
 # play around creating a simple o/s from scratch
 #
 
-./vbox.sh -n os -m 4096 -c 2
+./vbox.sh -n os -m 1024 -c 1
 nasm boot_sect.asm -f bin -o boot_sect.img
 
 vboxmanage storagectl os --name "boot" --add floppy
