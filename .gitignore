@@ -6,3 +6,5 @@ irmod
 loopdir
 MD5SUMS.small
 *.vdi
+boot_sect.bin
+boot_sect.img
